@@ -3,6 +3,7 @@ package com.chengxiang.mango.page;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class PageRequest {
     // 当前页码
     private int pageNum = 1;

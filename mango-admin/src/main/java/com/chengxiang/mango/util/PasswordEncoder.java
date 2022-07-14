@@ -30,11 +30,33 @@ public class PasswordEncoder {
      * @param rowPass 明文密码
      * @return 密文
      */
-    public String encode(String rowPass) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance(MD5);
-        byte[] digest = md.digest(mergePasswordAndSalt(rowPass).getBytes("utf-8"));
+    public String encode(String rowPass) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance(MD5);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        byte[] digest = null;
+        try {
+            digest = md.digest(mergePasswordAndSalt(rowPass).getBytes("utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         return byteArrayToHexString(digest);
     }
+
+    public boolean match(String rowPass,String encPass) {
+        try {
+            return PasswordUtil.matches(salt,rowPass,encPass);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     /**
      * 合并盐值和密码
@@ -68,10 +90,5 @@ public class PasswordEncoder {
     public String byteToHexString(byte b) {
         return Integer.toHexString(b & 0xff);
     }
-
-//    public static void main(String[] args) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-////        PasswordEncoder passwordEncoder = new PasswordEncoder("123456",MD5);
-////        System.out.println(passwordEncoder.encode("chengxiang...4"));
-//    }
 
 }

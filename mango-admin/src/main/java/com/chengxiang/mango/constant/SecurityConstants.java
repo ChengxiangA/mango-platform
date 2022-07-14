@@ -10,4 +10,10 @@ public final class SecurityConstants {
     public static final String ACTUATOR_WHITELISTS = "/actuator/**";
 
     public static final String DRUID_WHITELISTS = "/druid/**";
+
+    // 密钥
+    public static final String SECRET_KEY = "THISISAKEY";
+
+    // Token 前缀
+    public static final String TOKEN_SUFFIX = "Bearer ";
 }

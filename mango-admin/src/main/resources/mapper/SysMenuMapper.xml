@@ -191,4 +191,16 @@
     from
     `sys_menu`
   </select>
+
+  <!-- 根据用户姓名查权限 -->
+  <select id="findByUsername" resultMap="BaseResultMap">
+    select m.*
+    from sys_user u join sys_user_role ur
+    on u.id = ur.user_id join sys_role_menu rm
+    on ur.role_id = rm.role_id join sys_menu m
+    on m.id = rm.menu_id
+    where u.name = #{username,jdbcType=VARCHAR}
+  </select>
+
+
 </mapper>

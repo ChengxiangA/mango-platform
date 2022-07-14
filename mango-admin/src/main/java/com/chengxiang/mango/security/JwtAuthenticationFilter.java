@@ -1,6 +1,6 @@
 package com.chengxiang.mango.security;
 
-import org.apache.catalina.security.SecurityUtil;
+import com.chengxiang.mango.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -17,9 +17,17 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         super(authenticationManager);
     }
 
-//    @Override
-//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-//        SecurityUtil.checkAuthentication(request);
-//        chain.doFilter(request,response);
-//    }
+    /**
+     * 检查 Token
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        SecurityUtil.checkAuthentication(request);
+        chain.doFilter(request,response);
+    }
 }

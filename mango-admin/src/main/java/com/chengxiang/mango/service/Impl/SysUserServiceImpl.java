@@ -3,11 +3,14 @@ package com.chengxiang.mango.service.Impl;
 import com.chengxiang.mango.common.utils.PoiUtil;
 import com.chengxiang.mango.common.utils.ReflectionUtil;
 import com.chengxiang.mango.constant.SysConstants;
+import com.chengxiang.mango.entity.SysMenu;
 import com.chengxiang.mango.entity.SysUser;
+import com.chengxiang.mango.mapper.SysMenuMapper;
 import com.chengxiang.mango.mapper.SysUserMapper;
 import com.chengxiang.mango.page.MybatisPageHelper;
 import com.chengxiang.mango.page.PageRequest;
 import com.chengxiang.mango.page.PageResult;
+import com.chengxiang.mango.service.SysMenuService;
 import com.chengxiang.mango.service.SysUserService;
 import com.chengxiang.mango.util.DateUtil;
 import com.github.pagehelper.Page;
@@ -19,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +30,17 @@ import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
-    @Autowired
-    SysUserMapper sysUserMapper;
+    @Resource
+    private SysUserMapper sysUserMapper;
+
+    @Resource
+    private SysMenuMapper sysMenuMapper;
 
     @Override
     public int update(SysUser sysUser) {
@@ -97,7 +106,19 @@ public class SysUserServiceImpl implements SysUserService {
         createUserExcelFile(page.getContent(),response);
     }
 
-    public static void createUserExcelFile(List<SysUser> records,HttpServletResponse response) throws IOException {
+    @Override
+    public Set<String> findPermissions(String username) {
+        Set<String> perms = new HashSet<>();
+        List<SysMenu> menus = sysMenuMapper.findByUsername(username);
+        for (SysMenu menu : menus) {
+            if(menu.getPerms() != null && menu.getPerms().length() != 0) {
+                perms.add(menu.getPerms());
+            }
+        }
+        return perms;
+    }
+
+    public static void createUserExcelFile(List<SysUser> records, HttpServletResponse response) throws IOException {
         if(records == null) {
             records = new ArrayList<>();
         }

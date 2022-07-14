@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public interface SysUserService extends CrudService<SysUser> {
 
@@ -20,4 +21,6 @@ public interface SysUserService extends CrudService<SysUser> {
     SysUser findByName(@Param("name") String name);
 
     void createUserExcelFile(PageRequest pageRequest,HttpServletResponse response) throws IOException;
+
+    Set<String> findPermissions(String userName);
 }

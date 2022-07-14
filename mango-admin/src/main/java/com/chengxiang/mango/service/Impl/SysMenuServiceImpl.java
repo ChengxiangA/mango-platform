@@ -56,7 +56,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<SysMenu> findByUser(String username) {
-        return null;
+    public List<SysMenu> findByUsername(String username) {
+        return sysMenuMapper.findByUsername(username);
     }
 }

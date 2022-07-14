@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private SysUserService sysUserService;
@@ -20,7 +24,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("该用户不存在!");
         }
-        return new JwtUserDetails(username,user.getPassword(),user.getSalt(),new HashSet<>());
+        Set<String> permissions = sysUserService.findPermissions(username);
+        List<GrantedAuthorityImpl> grantedAuthorities = new ArrayList<>();
+        for (String permission : permissions) {
+            grantedAuthorities.add(new GrantedAuthorityImpl(permission));
+        }
+        return new JwtUserDetails(username,user.getPassword(),user.getSalt(),grantedAuthorities);
     }
-
 }

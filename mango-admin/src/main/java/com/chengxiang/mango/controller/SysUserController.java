@@ -92,4 +92,9 @@ public class SysUserController {
     public void exportUserExcelFile(@RequestBody PageRequest pageRequest, HttpServletResponse response) throws IOException {
         sysUserService.createUserExcelFile(pageRequest,response);
     }
+
+    @PostMapping("/findPermissions")
+    public HttpResult findPermissions(@RequestParam("username") String username) {
+        return HttpResult.ok("权限查询成功",sysUserService.findPermissions(username));
+    }
 }
