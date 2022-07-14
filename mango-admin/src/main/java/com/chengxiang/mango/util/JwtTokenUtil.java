@@ -1,6 +1,7 @@
 package com.chengxiang.mango.util;
 
 import com.chengxiang.mango.constant.SecurityConstants;
+import com.chengxiang.mango.security.JwtAuthenticationToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -82,13 +83,32 @@ public class JwtTokenUtil implements Serializable {
         String refreshToken = generateToken(claims);
         return refreshToken;
     }
-    
+
+
+    /**
+     * 根据请求Token获取 Authentication
+     * @param request
+     * @return
+     */
     public static Authentication getAuthenticationFromToken(HttpServletRequest request) {
         Authentication authentication = null;
-        String token = request.getHeader("Authentication");
+        // 获取请求携带的令牌
+        String token = JwtTokenUtil.getToken(request);
         if(token != null) {
-
+            // 上下文路径 Authentication 为空
+            if(SecurityUtil.getAuthentication() == null) {
+                Claims claims = getClaimsFromToken(token);
+                if(claims == null || claims.getSubject() == null || isTokenExpired(token)) {
+                    return null;
+                }
+                List authorities = (List) claims.get(AUTHORITIES);
+                authentication = new JwtAuthenticationToken(claims.getSubject(),null,authorities,token);
+            } else {
+                // 上下文已经存在 authentication
+                authentication = SecurityUtil.getAuthentication();
+            }
         }
+        return authentication;
     }
 
     public static Claims getClaimsFromToken(String token) {

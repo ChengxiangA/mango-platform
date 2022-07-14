@@ -42,10 +42,7 @@ public class SecurityUtil {
         String username = null;
         Authentication authentication = getAuthentication();
         if(authentication != null) {
-            Object principal = authentication.getPrincipal();
-            if(principal != null && principal instanceof UserDetails) {
-                username = ((UserDetails) principal).getUsername();
-            }
+            username = (String) authentication.getPrincipal();
         }
         return username;
     }
@@ -53,10 +50,7 @@ public class SecurityUtil {
     public static String getUsername(Authentication authentication) {
         String username = null;
         if(authentication != null) {
-            Object principal = authentication.getPrincipal();
-            if(principal != null && principal instanceof UserDetails) {
-                username = ((UserDetails) principal).getUsername();
-            }
+            username = (String) authentication.getPrincipal();
         }
         return username;
     }
