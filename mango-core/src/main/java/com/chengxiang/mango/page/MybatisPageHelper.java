@@ -14,7 +14,7 @@ public class MybatisPageHelper {
     public static final String findPage = "findPage";
 
     /**
-     * 分页查询，约定查询方法为 ‘findPage’
+     * 分页查询，如果不填写方法名 则 约定查询方法为 ‘findPage’
      * @param pageRequest 分页请求
      * @param mapper Dao对象，Mybatis的Mapper
      * @return 封装的分页结果
@@ -23,11 +23,20 @@ public class MybatisPageHelper {
         return findPage(pageRequest,mapper,findPage);
     }
 
+    /**
+     * 传入分页请求对象，mapper类，方法名，方法参数
+     * 通过反射调用分页方法
+     * @param pageRequest
+     * @param mapper
+     * @param queryMethodName
+     * @param args
+     * @return
+     */
     public static PageResult findPage(PageRequest pageRequest,Object mapper,String queryMethodName,Object... args) {
         int pageNum = pageRequest.getPageNum();
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum,pageSize);
-        Object result = ReflectionUtil.invoke(mapper, findPage, args);
+        Object result = ReflectionUtil.invoke(mapper,queryMethodName, args);
         return getPageResult(new PageInfo<>((List) result));
     }
 

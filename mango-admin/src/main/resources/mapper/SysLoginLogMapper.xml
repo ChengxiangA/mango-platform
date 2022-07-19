@@ -131,4 +131,44 @@
     from
         `sys_login_log`
   </select>
+
+  <select id="findPageByUsername" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + _parameter.username + '%'" />
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        sys_login_log
+    where
+        user_name like #{pattern}
+  </select>
+
+  <select id="findPageByStatus" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + _parameter.status + '%'" />
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        sys_login_log
+    where
+        status like #{pattern}
+  </select>
+
+  <select id="findPageByUsernameAndStatus" resultMap="BaseResultMap">
+    <bind name="username" value="'%' + _parameter.username + '%'" />
+    <bind name="status" value="'%' + _parameter.status + '%'"/>
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        sys_login_log
+    where
+        user_name like #{username} and status like #{status}
+  </select>
+
+  <select id="findByUsernameAndStatus" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        sys_login_log
+    where
+        user_name = #{username} and status = #{status}
+  </select>
 </mapper>

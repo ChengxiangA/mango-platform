@@ -1,6 +1,7 @@
 package com.chengxiang.mango.mapper;
 
 import com.chengxiang.mango.entity.SysLoginLog;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +20,11 @@ public interface SysLoginLogMapper {
 
     List<SysLoginLog> findPage();
 
+    List<SysLoginLog> findPageByUsername(@Param("username") String username);
+
+    List<SysLoginLog> findPageByStatus(@Param("status") String status);
+
+    List<SysLoginLog> findPageByUsernameAndStatus(@Param("username") String username,@Param("status") String status);
+
+    List<SysLoginLog> findByUsernameAndStatus(@Param("username") String username,@Param("status") String status);
 }
