@@ -235,4 +235,5 @@
         `sys_user`
     where name=#{name};
   </select>
+  
 </mapper>

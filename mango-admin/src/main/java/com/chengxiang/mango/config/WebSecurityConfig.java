@@ -5,8 +5,10 @@ import com.chengxiang.mango.security.JwtAuthenticationFilter;
 import com.chengxiang.mango.security.JwtAuthenticationProvider;
 import com.chengxiang.mango.security.JwtUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,9 +40,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(SecurityConstants.CAPTCHA_WHITELISTS).permitAll()
                 .antMatchers(SecurityConstants.ACTUATOR_WHITELISTS).permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                .antMatchers("/user/**").permitAll() // 测试
                 .anyRequest().authenticated().and()
-                .formLogin().and().httpBasic();
+                .formLogin();
 
         http.addFilterBefore(new JwtAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 }

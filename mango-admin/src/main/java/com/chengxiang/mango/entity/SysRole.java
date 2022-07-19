@@ -3,30 +3,11 @@ package com.chengxiang.mango.entity;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class SysRole {
-    private Long id;
-
+public class SysRole extends BaseModel {
     private String name;
 
     private String remark;
-
-    private String createBy;
-
-    private LocalDate createTime;
-
-    private String lastUpdateBy;
-
-    private LocalDate lastUpdateTime;
-
     private Byte delFlag;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -42,38 +23,6 @@ public class SysRole {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public LocalDate getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDate createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy == null ? null : lastUpdateBy.trim();
-    }
-
-    public LocalDate getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(LocalDate lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
     }
 
     public Byte getDelFlag() {

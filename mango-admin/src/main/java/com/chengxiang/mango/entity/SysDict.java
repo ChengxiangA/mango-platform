@@ -3,9 +3,7 @@ package com.chengxiang.mango.entity;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class SysDict {
-    private Long id;
-
+public class SysDict extends BaseModel {
     private String value;
 
     private String label;
@@ -16,25 +14,9 @@ public class SysDict {
 
     private Long sort;
 
-    private String createBy;
-
-    private LocalDate createTime;
-
-    private String lastUpdateBy;
-
-    private LocalDate lastUpdateTime;
-
     private String remarks;
 
     private Byte delFlag;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getValue() {
         return value;
@@ -74,38 +56,6 @@ public class SysDict {
 
     public void setSort(Long sort) {
         this.sort = sort;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public LocalDate getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDate createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy == null ? null : lastUpdateBy.trim();
-    }
-
-    public LocalDate getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(LocalDate lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
     }
 
     public String getRemarks() {

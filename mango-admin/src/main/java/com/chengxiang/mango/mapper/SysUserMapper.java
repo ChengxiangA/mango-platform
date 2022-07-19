@@ -23,5 +23,4 @@ public interface SysUserMapper {
 
     SysUser findByName(String name);
 
-    SysUser findPermissions(String name);
 }

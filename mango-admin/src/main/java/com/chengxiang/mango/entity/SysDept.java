@@ -2,32 +2,14 @@ package com.chengxiang.mango.entity;
 
 import java.time.LocalDate;
 
-public class SysDept {
-    private Long id;
-
+public class SysDept extends BaseModel {
     private String name;
 
     private Long parentId;
 
     private Integer orderNum;
 
-    private String createBy;
-
-    private LocalDate createTime;
-
-    private String lastUpdateBy;
-
-    private LocalDate lastUpdateTime;
-
     private Byte delFlag;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -51,38 +33,6 @@ public class SysDept {
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public LocalDate getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDate createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy == null ? null : lastUpdateBy.trim();
-    }
-
-    public LocalDate getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(LocalDate lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
     }
 
     public Byte getDelFlag() {

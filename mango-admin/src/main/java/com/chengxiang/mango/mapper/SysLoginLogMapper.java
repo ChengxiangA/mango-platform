@@ -17,5 +17,6 @@ public interface SysLoginLogMapper {
 
     int updateByPrimaryKey(SysLoginLog record);
 
-    List<SysLoginLog> findAll();
+    List<SysLoginLog> findPage();
+
 }

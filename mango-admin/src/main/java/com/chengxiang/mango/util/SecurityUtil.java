@@ -31,6 +31,8 @@ public class SecurityUtil {
     }
 
     public static void checkAuthentication(HttpServletRequest request) {
+        Authentication authentication = JwtTokenUtil.getAuthenticationFromToken(request);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
 
@@ -47,6 +49,11 @@ public class SecurityUtil {
         return username;
     }
 
+    /**
+     * 如果用户未登录，则通过 authentication 获取登录凭证
+     * @param authentication
+     * @return
+     */
     public static String getUsername(Authentication authentication) {
         String username = null;
         if(authentication != null) {

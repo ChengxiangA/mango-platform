@@ -7,9 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SysUser {
-    private Long id;
-
+public class SysUser extends BaseModel {
     private String name;
 
     private String nickName;
@@ -28,18 +26,6 @@ public class SysUser {
 
     private Long deptId;
 
-    private String createBy;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
-
-    private String lastUpdateBy;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime lastUpdateTime;
-
     private Byte delFlag;
 
     // 非数据库字段
@@ -48,15 +34,6 @@ public class SysUser {
     private String roleNames;
     // 非数据库字段
     private List<SysUserRole> userRoles = new ArrayList<>();
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -128,38 +105,6 @@ public class SysUser {
 
     public void setDeptId(Long deptId) {
         this.deptId = deptId;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy == null ? null : lastUpdateBy.trim();
-    }
-
-    public LocalDateTime getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(LocalDateTime lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
     }
 
     public Byte getDelFlag() {
