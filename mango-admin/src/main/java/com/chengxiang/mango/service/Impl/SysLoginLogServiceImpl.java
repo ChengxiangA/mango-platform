@@ -7,6 +7,7 @@ import com.chengxiang.mango.page.PageRequest;
 import com.chengxiang.mango.page.PageResult;
 import com.chengxiang.mango.service.SysLoginLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @author 程祥
  * @date 2022/7/19 14:39
  */
+@Service
 public class SysLoginLogServiceImpl implements SysLoginLogService {
 
     @Autowired
@@ -55,13 +57,15 @@ public class SysLoginLogServiceImpl implements SysLoginLogService {
         Object username = pageRequest.getParamValue("username");
         Object status = pageRequest.getParamValue("status");
         if(username != null && status != null) {
-            return MybatisPageHelper.findPage(pageRequest,SysLoginLogMapper.class,"findPageByUsernameAndStatus",username,status);
+            return MybatisPageHelper.findPage(pageRequest,sysLoginLogMapper,"findPageByUsernameAndStatus",username,status);
         } else if(username != null) {
-            return MybatisPageHelper.findPage(pageRequest,SysLoginLogMapper.class,"findPageByStatus",status);
+            return MybatisPageHelper.findPage(pageRequest,sysLoginLogMapper,"findPageByUsername",username);
         } else if(status != null) {
-            return MybatisPageHelper.findPage(pageRequest,SysLoginLogMapper.class,"findPageByUsername",username);
+            return MybatisPageHelper.findPage(pageRequest,sysLoginLogMapper,"findPageByStatus",status);
         }
         // 没有条件，查询全部日志.
         return MybatisPageHelper.findPage(pageRequest,SysLoginLogMapper.class);
     }
+
+
 }

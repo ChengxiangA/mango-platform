@@ -3,7 +3,6 @@ package com.chengxiang.mango.config;
 import com.chengxiang.mango.constant.SecurityConstants;
 import com.chengxiang.mango.security.JwtAuthenticationFilter;
 import com.chengxiang.mango.security.JwtAuthenticationProvider;
-import com.chengxiang.mango.security.JwtUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(SecurityConstants.ACTUATOR_WHITELISTS).permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers("/user/**").permitAll() // 测试
+                .antMatchers("/log/**").permitAll() // 测试
                 .anyRequest().authenticated().and()
                 .formLogin();
 

@@ -54,7 +54,11 @@ public class ReflectionUtil {
                 boolean isSameMethod = true;
                 Class<?>[] parameterTypes = method.getParameterTypes();
                 for(int i = 0;i < method.getParameterCount();i ++) {
-                    if(!parameterTypes[i].equals(args[i])) {
+                    Object arg = args[i];
+                    if(arg == null) {
+                        arg = "";
+                    }
+                    if(!parameterTypes[i].equals(args[i].getClass())) {
                         isSameMethod = false;
                         break;
                     }
