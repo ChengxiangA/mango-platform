@@ -8,6 +8,7 @@ import com.chengxiang.mango.page.PageResult;
 import com.chengxiang.mango.service.SysLogService;
 import com.chengxiang.mango.service.SysLoginLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author 程祥
  * @date 2022/7/20 21:00
  */
+@Service
 public class SysLogServiceImpl implements SysLogService {
     @Autowired
     private SysLogMapper sysLogMapper;

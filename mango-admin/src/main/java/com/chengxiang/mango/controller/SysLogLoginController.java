@@ -26,14 +26,12 @@ public class SysLogLoginController {
     @Autowired
     SysLoginLogService sysLoginLogService;
 
-    @PreAuthorize("hasAuthority('sys:loginlog:view')")
     @PostMapping("/findPage")
     public HttpResult findPage(@RequestBody PageRequest pageRequest) {
         PageResult page = sysLoginLogService.findPage(pageRequest);
         return HttpResult.ok("查询日志成功",page);
     }
 
-    @PreAuthorize("hasAuthority('sys:loginlog:delete')")
     @PostMapping("/delete")
     public HttpResult delete(@RequestBody List<SysLoginLog> records) {
         return HttpResult.ok("删除成功", sysLoginLogService.delete(records));

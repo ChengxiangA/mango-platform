@@ -1,6 +1,7 @@
 package com.chengxiang.mango.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class SysDept extends BaseModel {
     private String name;
@@ -10,6 +11,15 @@ public class SysDept extends BaseModel {
     private Integer orderNum;
 
     private Byte delFlag;
+
+    // 非数据库字段
+    private List<SysDept> children;
+
+    // 非数据库字段
+    private String parentName;
+
+    // 非数据库字段
+    private Integer level;
 
     public String getName() {
         return name;
@@ -41,5 +51,29 @@ public class SysDept extends BaseModel {
 
     public void setDelFlag(Byte delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public List<SysDept> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysDept> children) {
+        this.children = children;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

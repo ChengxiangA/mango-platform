@@ -143,4 +143,11 @@
     from
         `sys_dept`
   </select>
+
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        sys_dept
+  </select>
 </mapper>

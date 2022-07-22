@@ -1,6 +1,7 @@
 package com.chengxiang.mango.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class SysMenu extends BaseModel {
 
@@ -19,6 +20,15 @@ public class SysMenu extends BaseModel {
     private Integer orderNum;
 
     private Byte delFlag;
+
+    // 非数据库字段
+    private String parentName;
+
+    // 非数据库字段
+    private Integer level;
+
+    // 非数据库字段
+    private List<SysMenu> children;
 
     public String getName() {
         return name;

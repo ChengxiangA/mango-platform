@@ -18,5 +18,7 @@ public interface SysDeptMapper {
 
     int updateByPrimaryKey(SysDept record);
 
-    List<SysConfig> findAll();
+    List<SysDept> findAll();
+
+    List<SysDept> findPage();
 }

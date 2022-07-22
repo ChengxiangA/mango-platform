@@ -2,6 +2,7 @@ package com.chengxiang.mango.service.Impl;
 
 import com.chengxiang.mango.entity.SysMenu;
 import com.chengxiang.mango.mapper.SysMenuMapper;
+import com.chengxiang.mango.page.MybatisPageHelper;
 import com.chengxiang.mango.page.PageRequest;
 import com.chengxiang.mango.page.PageResult;
 import com.chengxiang.mango.service.SysMenuService;
@@ -47,14 +48,19 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public PageResult findPage(PageRequest pageRequest) {
-        return null;
+        return MybatisPageHelper.findPage(pageRequest,sysMenuMapper);
     }
 
     @Override
-    public List<SysMenu> findTree() {
+    public List<SysMenu> findTree(String username,int menuType) {
         return null;
     }
 
+    /**
+     * 根据用户名查找菜单列表
+     * @param username
+     * @return
+     */
     @Override
     public List<SysMenu> findByUsername(String username) {
         return sysMenuMapper.findByUsername(username);

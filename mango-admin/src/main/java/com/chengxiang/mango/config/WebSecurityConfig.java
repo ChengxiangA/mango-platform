@@ -41,9 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers("/user/**").permitAll() // 测试
                 .antMatchers("/log/**").permitAll() // 测试
-                .anyRequest().authenticated().and()
+                .antMatchers("/loginlog/**").permitAll() // 测试
+                .anyRequest().permitAll().and() // 为了测试，放开所有控制器
                 .formLogin();
-
         http.addFilterBefore(new JwtAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
     }
 

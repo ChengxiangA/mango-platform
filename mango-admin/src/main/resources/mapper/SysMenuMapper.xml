@@ -202,5 +202,26 @@
     where u.name = #{username,jdbcType=VARCHAR}
   </select>
 
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    `sys_menu`
+  </select>
 
+  <select id="findPageByName" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + _parameter.name + '%'" />
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        sys_menu
+    where name like #{pattern}
+  </select>
+  
+  <select id="findRoleMenus" resultMap="BaseResultMap">
+    select m.*
+    from sys_menu m join sys_role_menu rm
+    on m.id = rm.menu_id
+    where rm.role_id = #{roleId}
+  </select>
 </mapper>
