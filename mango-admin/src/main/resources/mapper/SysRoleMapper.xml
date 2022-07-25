@@ -131,4 +131,31 @@
     from
         `sys_role`
   </select>
+
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        `sys_role`
+  </select>
+
+  <select id="findPageByName" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + '%'" />
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        `sys_role`
+    where
+        name like #{name}
+  </select>
+
+  <select id="findByName" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + '%'" />
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        `sys_role`
+    where
+        name like #{name}
+  </select>
 </mapper>

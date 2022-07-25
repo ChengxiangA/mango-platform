@@ -1,6 +1,8 @@
 package com.chengxiang.mango.mapper;
 
+import com.chengxiang.mango.entity.SysMenu;
 import com.chengxiang.mango.entity.SysRoleMenu;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +20,8 @@ public interface SysRoleMenuMapper {
     int updateByPrimaryKey(SysRoleMenu record);
 
     List<SysRoleMenu> findAll();
+
+    List<SysMenu> findRoleMenus(@Param("roleId") Long roleId);
+
+    int deleteByRoleId(@Param("roleId") Long roleId);
 }

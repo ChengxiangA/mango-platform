@@ -6,6 +6,7 @@ import com.chengxiang.mango.mapper.SysLoginLogMapper;
 import com.chengxiang.mango.page.PageRequest;
 import com.chengxiang.mango.page.PageResult;
 import com.chengxiang.mango.service.SysLoginLogService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/loginlog")
+@Api(tags = "登录日志接口")
 public class SysLogLoginController {
     @Autowired
     SysLoginLogService sysLoginLogService;
@@ -34,6 +36,6 @@ public class SysLogLoginController {
 
     @PostMapping("/delete")
     public HttpResult delete(@RequestBody List<SysLoginLog> records) {
-        return HttpResult.ok("删除成功", sysLoginLogService.delete(records));
+        return HttpResult.ok("0:删除失败 1:删除成功", sysLoginLogService.delete(records));
     }
 }

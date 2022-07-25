@@ -3,12 +3,15 @@ package com.chengxiang.mango.controller;
 import com.chengxiang.mango.entity.SysUser;
 import com.chengxiang.mango.http.HttpResult;
 import com.chengxiang.mango.security.JwtAuthenticationToken;
+import com.chengxiang.mango.service.SysLoginLogService;
 import com.chengxiang.mango.service.SysUserService;
+import com.chengxiang.mango.util.IPUtil;
 import com.chengxiang.mango.util.PasswordEncoder;
 import com.chengxiang.mango.util.SecurityUtil;
 import com.chengxiang.mango.vo.LoginBean;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @RestController
+@Api(tags = {"登录接口"})
 public class SysLoginController {
     @Autowired
     private Producer producer;
@@ -33,6 +37,9 @@ public class SysLoginController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private SysLoginLogService sysLoginLogService;
 
     @GetMapping("/captcha.jpg")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -64,14 +71,14 @@ public class SysLoginController {
             return HttpResult.error("账号不存在");
         }
         PasswordEncoder passwordEncoder = new PasswordEncoder(user.getSalt());
-        if(!passwordEncoder.match(loginBean.getPassword(),user.getPassword())) {
+        if(!passwordEncoder.match(password,user.getPassword())) {
             return HttpResult.error("密码错误");
         }
         if(user.getStatus() == 0) {
             return HttpResult.error("账号已被锁定,请联系管理员");
         }
         JwtAuthenticationToken token = SecurityUtil.login(request, username, user.getPassword(), authenticationManager);
-        
+        sysLoginLogService.writeLoginLog(username, IPUtil.getIpAddress(request));
         return HttpResult.ok("成功登录",token);
     }
 }

@@ -1,5 +1,6 @@
 package com.chengxiang.mango.service.Impl;
 
+import com.chengxiang.mango.entity.SysLog;
 import com.chengxiang.mango.entity.SysLoginLog;
 import com.chengxiang.mango.mapper.SysLoginLogMapper;
 import com.chengxiang.mango.page.MybatisPageHelper;
@@ -9,6 +10,7 @@ import com.chengxiang.mango.service.SysLoginLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,8 +24,13 @@ public class SysLoginLogServiceImpl implements SysLoginLogService {
     private SysLoginLogMapper sysLoginLogMapper;
 
     @Override
-    public int writeLoginLog(String userName, String ip) {
-        return 0;
+    public int writeLoginLog(String username, String ip) {
+        SysLoginLog sysLoginLog = new SysLoginLog();
+        sysLoginLog.setIp(ip);
+        sysLoginLog.setUserName(username);
+        sysLoginLog.setCreateTime(LocalDateTime.now());
+        sysLoginLog.setStatus(SysLoginLog.STATUS_LOGIN);
+        return sysLoginLogMapper.insertSelective(sysLoginLog);
     }
 
     @Override
@@ -64,7 +71,7 @@ public class SysLoginLogServiceImpl implements SysLoginLogService {
             return MybatisPageHelper.findPage(pageRequest,sysLoginLogMapper,"findPageByStatus",status);
         }
         // 没有条件，查询全部日志.
-        return MybatisPageHelper.findPage(pageRequest,SysLoginLogMapper.class);
+        return MybatisPageHelper.findPage(pageRequest,sysLoginLogMapper);
     }
 
 

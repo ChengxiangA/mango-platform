@@ -178,6 +178,22 @@
     select
     <include refid="Base_Column_List"></include>
     from
-    `sys_dict`
+    `sys_config`
+  </select>
+
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    `sys_config`
+  </select>
+
+  <select id="findByLabel" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + _parameter.label + '%'" />
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    `sys_config`
+    where label like  #{pattern}
   </select>
 </mapper>

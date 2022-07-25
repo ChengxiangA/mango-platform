@@ -1,6 +1,7 @@
 package com.chengxiang.mango.mapper;
 
 import com.chengxiang.mango.entity.SysConfig;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,8 @@ public interface SysConfigMapper {
     int updateByPrimaryKey(SysConfig record);
 
     List<SysConfig> findAll();
+
+    List<SysConfig> findPage();
+
+    List<SysConfig> findByLabel(@Param("label") String label);
 }

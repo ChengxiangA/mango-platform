@@ -13,6 +13,7 @@ public class SysMenu extends BaseModel {
 
     private String perms;
 
+    // 0: 目录 1：菜单 2：按钮
     private Integer type;
 
     private String icon;
@@ -92,5 +93,29 @@ public class SysMenu extends BaseModel {
 
     public void setDelFlag(Byte delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public List<SysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenu> children) {
+        this.children = children;
     }
 }

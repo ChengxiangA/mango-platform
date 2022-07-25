@@ -1,5 +1,6 @@
 package com.chengxiang.mango.service.Impl;
 
+import com.chengxiang.mango.constant.SysConstants;
 import com.chengxiang.mango.entity.SysMenu;
 import com.chengxiang.mango.mapper.SysMenuMapper;
 import com.chengxiang.mango.page.MybatisPageHelper;
@@ -8,7 +9,10 @@ import com.chengxiang.mango.page.PageResult;
 import com.chengxiang.mango.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -53,8 +57,41 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<SysMenu> findTree(String username,int menuType) {
-        return null;
+        List<SysMenu> sysMenus = new ArrayList<>();
+        List<SysMenu> menus = findByUser(username);
+        for (SysMenu menu : menus) {
+            // 先找到一级目录
+            if(menu.getParentId() == null || menu.getParentId() == 0) {
+                menu.setLevel(0);
+                sysMenus.add(menu);
+            }
+        }
+        findChildren(sysMenus,menus,menuType);
+        return sysMenus;
     }
+
+
+    private void findChildren(List<SysMenu> sysMenus,List<SysMenu> menus,int menuType) {
+        for(SysMenu sysMenu: sysMenus) {
+            List<SysMenu> children = new ArrayList<>();
+            for (SysMenu menu : menus) {
+                // 如果不需要获取按钮，则跳过
+                if(menuType == 1 && menu.getType() == 2) {
+                    continue;
+                }
+                if(menu.getParentId() != null && menu.getParentId() == sysMenu.getId()) {
+                    menu.setLevel(sysMenu.getLevel() + 1);
+                    menu.setParentName(sysMenu.getName());
+                    children.add(menu);
+                }
+            }
+            if(menuType == 0) {
+                findChildren(children,menus,menuType);
+            }
+            sysMenu.setChildren(children);
+        }
+    }
+
 
     /**
      * 根据用户名查找菜单列表
@@ -62,7 +99,12 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return
      */
     @Override
-    public List<SysMenu> findByUsername(String username) {
+    public List<SysMenu> findByUser(String username) {
+        if(StringUtils.isEmpty(username) || SysConstants.ADMIN.equals(username)) {
+            return sysMenuMapper.findAll();
+        }
         return sysMenuMapper.findByUsername(username);
     }
+
+
 }

@@ -120,4 +120,33 @@
     from
     `sys_role_menu`
   </select>
+
+
+  <resultMap id="menuMap" type="com.chengxiang.mango.entity.SysMenu">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="perms" jdbcType="VARCHAR" property="perms" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+  </resultMap>
+  <select id="findRoleMenus" resultMap="menuMap">
+    select
+        m.*
+    from
+        sys_role_menu rm join sys_menu m on rm.menu_id = m.id
+    where role_id = #{roleId}
+  </select>
+
+  <delete id="deleteByRoleId">
+    delete from sys_role_menu
+    where role_id = #{roleId}
+  </delete>
 </mapper>

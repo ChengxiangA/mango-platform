@@ -19,6 +19,7 @@ public interface SysMenuService extends CrudService<SysMenu> {
      * @param username
      * @return
      */
-    List<SysMenu> findByUsername(String username);
 
+
+    List<SysMenu> findByUser(String username);
 }

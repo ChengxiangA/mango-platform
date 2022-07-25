@@ -18,4 +18,10 @@ public interface SysRoleMapper {
     int updateByPrimaryKey(SysRole record);
 
     List<SysRole> findAll();
+
+    List<SysRole> findPageByName(String name);
+
+    List<SysRole> findPage();
+
+    List<SysRole> findByName(String name);
 }

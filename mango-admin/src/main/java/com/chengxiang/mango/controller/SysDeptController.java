@@ -3,6 +3,7 @@ package com.chengxiang.mango.controller;
 import com.chengxiang.mango.entity.SysDept;
 import com.chengxiang.mango.http.HttpResult;
 import com.chengxiang.mango.service.SysDeptService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/dept")
+@Api(tags = "机构接口")
 public class SysDeptController {
     @Autowired
     private SysDeptService sysDeptService;

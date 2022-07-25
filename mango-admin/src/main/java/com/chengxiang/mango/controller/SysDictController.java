@@ -5,6 +5,7 @@ import com.chengxiang.mango.http.HttpResult;
 import com.chengxiang.mango.page.PageRequest;
 import com.chengxiang.mango.page.PageResult;
 import com.chengxiang.mango.service.SysDictService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("dict")
+@Api(tags = {"字典接口"})
 public class SysDictController {
     @Autowired
     private SysDictService sysDictService;

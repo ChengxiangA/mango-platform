@@ -4,6 +4,7 @@ import com.chengxiang.mango.entity.SysLog;
 import com.chengxiang.mango.http.HttpResult;
 import com.chengxiang.mango.page.PageRequest;
 import com.chengxiang.mango.service.SysLogService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/log")
+@Api(tags = {"操作日志接口"})
 public class SysLogController {
 
     @Autowired

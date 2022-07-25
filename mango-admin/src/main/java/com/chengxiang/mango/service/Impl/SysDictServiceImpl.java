@@ -2,6 +2,7 @@ package com.chengxiang.mango.service.Impl;
 
 import com.chengxiang.mango.entity.SysDict;
 import com.chengxiang.mango.mapper.SysDictMapper;
+import com.chengxiang.mango.page.MybatisPageHelper;
 import com.chengxiang.mango.page.PageRequest;
 import com.chengxiang.mango.page.PageResult;
 import com.chengxiang.mango.service.SysDictService;
@@ -50,23 +51,12 @@ public class SysDictServiceImpl implements SysDictService {
      */
     @Override
     public PageResult findPage(PageRequest pageRequest) {
-        Map<String, Object> params = pageRequest.getParams();
-        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
-        List<SysDict> sysDictList;
-        if(params.containsKey("label") && null != params.get("label")) {
-            String label = (String) params.get("label");
-            PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
-            sysDictList = sysDictMapper.findPageByLabel(label);
+        Object label = pageRequest.getParamValue("label");
+        if(label == null) {
+            return MybatisPageHelper.findPage(pageRequest,sysDictMapper);
         } else {
-            sysDictList = sysDictMapper.findPage();
+            return MybatisPageHelper.findPage(pageRequest,sysDictMapper,"findByLabel",label);
         }
-        PageInfo<SysDict> sysDictPageInfo = new PageInfo<>(sysDictList);
-        PageResult<SysDict> sysDictPageResult = new PageResult<>();
-        sysDictPageResult.setPageNum(pageRequest.getPageNum());
-        sysDictPageResult.setPageSize(pageRequest.getPageSize());
-        sysDictPageResult.setTotalPage(sysDictPageInfo.getPages());
-        sysDictPageResult.setTotalSize(sysDictPageInfo.getTotal());
-        return sysDictPageResult;
     }
 
     /**
